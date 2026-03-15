@@ -182,20 +182,22 @@
     .section-sub { font-size: 1.1rem; color: var(--muted); max-width: 560px; }
 
     /* ── PROBLEM ── */
-    .problem { background: #0e2640; } /* dark navy */
+    .problem { background: #fff; } /* white */
+    .problem .section-h2 { color: #1a1a2e; }
+    .problem .section-tag { /* gradient text works on both */ }
     .problem-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
       margin-top: 3.5rem;
     }
     .problem-quote {
       font-family: 'DM Serif Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-style: italic; line-height: 1.35; color: var(--text);
+      font-style: italic; line-height: 1.35; color: #1a1a2e;
     }
     .problem-quote .hl { color: var(--cyan); font-style: normal; }
     .problem-points { display: flex; flex-direction: column; gap: 1.25rem; }
     .problem-point {
       display: flex; gap: 1rem; align-items: flex-start;
-      background: var(--card); border: 1px solid var(--border);
+      background: #f5f3ff; border: 1px solid rgba(138,102,210,0.18);
       border-radius: 12px; padding: 1.25rem;
     }
     .problem-icon {
@@ -203,28 +205,30 @@
       display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
       background: rgba(138,102,210,0.15);
     }
-    .problem-point h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
-    .problem-point p { font-size: 0.875rem; color: var(--muted); }
+    .problem-point h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; color: #1a1a2e; }
+    .problem-point p { font-size: 0.875rem; color: #4a5568; }
 
     /* ── WHAT IT DOES ── */
-    .how { background: #221e44; } /* mid purple */
+    .how { background: #fff; } /* white */
+    .how .section-h2 { color: #1a1a2e; }
+    .how .section-sub { color: #4a5568; }
     .steps {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
       margin-top: 3.5rem;
     }
     .step {
-      background: var(--card); border: 1px solid var(--border);
+      background: #f5f3ff; border: 1px solid rgba(138,102,210,0.18);
       border-radius: 16px; padding: 2rem; position: relative;
     }
     .step-num {
       font-size: 0.75rem; font-weight: 800; color: var(--indigo);
       letter-spacing: 0.1em; margin-bottom: 1rem;
     }
-    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
-    .step p { font-size: 0.9rem; color: var(--muted); }
+    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; color: #1a1a2e; }
+    .step p { font-size: 0.9rem; color: #4a5568; }
 
     /* ── JOURNEYS ── */
-    .journeys { background: #122038; } /* dark navy */
+    .journeys { background: #1a1638; } /* dark purple */
     .journey-grid {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;
       margin-top: 3.5rem;
@@ -246,27 +250,30 @@
     .journey-card p { font-size: 0.9rem; color: var(--muted); }
 
     /* ── WHO ── */
-    .who { background: #0c2e3a; } /* teal-blue */
+    .who { background: #fff; } /* white */
+    .who .section-h2 { color: #1a1a2e; }
     .who-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
       margin-top: 3.5rem;
     }
     .who-card {
-      background: var(--card); border: 1px solid var(--border);
+      background: #f5f3ff; border: 1px solid rgba(138,102,210,0.18);
       border-radius: 14px; padding: 1.5rem; text-align: center;
     }
     .who-card .who-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
-    .who-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .who-card p { font-size: 0.82rem; color: var(--muted); }
+    .who-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: #1a1a2e; }
+    .who-card p { font-size: 0.82rem; color: #4a5568; }
 
     /* ── TEAM ── */
-    .team { background: #0e2840; } /* navy blue */
+    .team { background: #fff; } /* white */
+    .team .section-h2 { color: #1a1a2e; }
+    .team .section-sub { color: #4a5568; }
     .team-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
       margin-top: 3.5rem;
     }
     .team-card {
-      background: var(--card); border: 1px solid var(--border);
+      background: #f5f3ff; border: 1px solid rgba(138,102,210,0.18);
       border-radius: 16px; padding: 2rem; text-align: center;
     }
     .team-avatar {
@@ -275,9 +282,9 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem; font-weight: 800; color: #fff;
     }
-    .team-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .team-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; color: #1a1a2e; }
     .team-card .role { font-size: 0.82rem; color: var(--indigo); font-weight: 600; margin-bottom: 0.6rem; }
-    .team-card p { font-size: 0.85rem; color: var(--muted); }
+    .team-card p { font-size: 0.85rem; color: #4a5568; }
 
     /* ── CTA BAND ── */
     .cta-band {
@@ -312,7 +319,7 @@
     .footer-links a:hover { color: var(--text); }
 
     /* ── INDUSTRY VOICES ── */
-    .voices { background: #102c42; } /* steel blue */
+    .voices { background: #221e44; } /* dark purple */
     .voice-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
       margin-top: 3.5rem;
@@ -339,7 +346,7 @@
     .voice-title { font-size: 0.8rem; color: var(--muted); margin-top: 0.15rem; }
 
     /* ── TESTIMONIALS ── */
-    .testimonials { background: #201c42; } /* deep purple */
+    .testimonials { background: #221e44; } /* dark purple */
     .testi-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
       margin-top: 3.5rem;
@@ -383,7 +390,7 @@
     </a>
     <div class="nav-links">
       <a href="https://journeymaker.io/sign-in" class="btn-ghost">Log In</a>
-      <a href="https://gamethinking.io/journeymaker/" class="btn-primary">Book a Demo</a>
+      <a href="./demo.html" class="btn-primary">Book a Demo</a>
     </div>
   </nav>
 
@@ -398,7 +405,7 @@
       vividly illustrated user journey that aligns your team before you write a line of code.
     </p>
     <div class="hero-ctas">
-      <a href="https://gamethinking.io/journeymaker/" class="btn-lg">Book a Demo →</a>
+      <a href="./demo.html" class="btn-lg">Book a Demo →</a>
     </div>
 
   </section>
@@ -415,7 +422,7 @@
             But speed without direction just means arriving at the
             <span class="hl">wrong destination faster.</span>"
           </p>
-          <p style="margin-top:1.5rem; color: var(--muted); font-size:0.95rem; line-height:1.7;">
+          <p style="margin-top:1.5rem; color: #4a5568; font-size:0.95rem; line-height:1.7;">
             Teams fall in love with what they can build — not with what users will
             come back for. The result: products that impress on first use and
             disappoint over time. More features. Deeper problems.
@@ -613,7 +620,7 @@
         <div class="testi-card">
           <div class="testi-stars">★★★★★</div>
           <blockquote>
-            "How do I find the right people to talk to? Game Thinking made it super easy."
+            "How do I find the right people to talk to? Journey Design made it super easy."
           </blockquote>
           <div class="testi-attr">
             <div class="testi-name">Cara Meverden</div>
@@ -678,7 +685,7 @@
     <div class="container">
       <h2>Ready to design the<br>journey that works?</h2>
       <p>See Journeymaker in action. 30-minute demo, no commitment.</p>
-      <a href="https://gamethinking.io/journeymaker/" class="btn-lg">Book Your Demo →</a>
+      <a href="./demo.html" class="btn-lg">Book Your Demo →</a>
     </div>
   </section>
 

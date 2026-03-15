@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journeymaker — Vibe-Storyboard Your Product Experience</title>
+  <meta name="description" content="Journeymaker lets you vibe-storyboard your product experience. Communicate faster, detect retention problems early, and test ideas with high-value customers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo:   #8a66d2;
+      --cyan:     #00a9dd;
+      --orange:   #ffa260;
+      --coral:    #ed6a6a;
+      --yellow:   #ffdf70;
+      --text:     #f0f2f8;
+      --muted:    #8892a4;
+      --border:   rgba(255,255,255,0.07);
+      --dark-text: #1a1a2e;
+      --dark-muted: #4a5568;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a2e; line-height: 1.7; overflow-x: hidden; }
+
+    /* ── NAV (identical to index.html) ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(38,32,70,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .nav-logo img { width: 36px; height: 36px; border-radius: 50%; }
+    .nav-logo span {
+      font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; align-items: center; gap: 1rem; }
+    .btn-ghost {
+      background: transparent; border: 1px solid rgba(255,255,255,0.07);
+      color: #8892a4; padding: 0.45rem 1.1rem; border-radius: 8px;
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--indigo); color: #f0f2f8; }
+    .btn-nav-primary {
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      border: none; color: #fff; padding: 0.5rem 1.25rem; border-radius: 8px;
+      font-size: 0.875rem; font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: all 0.2s; box-shadow: 0 0 20px rgba(138,102,210,0.3);
+    }
+    .btn-nav-primary:hover { transform: translateY(-1px); box-shadow: 0 0 30px rgba(138,102,210,0.5); }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: 64px; /* nav height */
+      min-height: 55vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      position: relative; overflow: hidden;
+      background: url('./hero-bg.jpg') center center / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(34,24,74,0.82) 0%, rgba(14,38,64,0.78) 100%);
+    }
+    .hero-content { position: relative; z-index: 1; padding: 4rem 2rem; max-width: 860px; }
+    .hero-content h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900; line-height: 1.05; letter-spacing: -0.03em;
+      color: #fff; margin-bottom: 1.25rem;
+    }
+    .hero-content h2 {
+      font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+      font-weight: 600; color: rgba(255,255,255,0.88);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── SECTION SHARED ── */
+    .section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3.5rem; align-items: center;
+    }
+
+    /* ── INTRO SECTION (light) ── */
+    .intro { background: #fff; }
+    .intro p { font-size: 1.05rem; color: #2d3748; margin-bottom: 1.1rem; line-height: 1.75; }
+    .intro p strong { color: #1a1a2e; }
+    .checklist { list-style: none; margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
+    .checklist li { font-size: 1rem; color: #2d3748; display: flex; align-items: flex-start; gap: 0.6rem; }
+    .checklist li::before { content: '✅'; flex-shrink: 0; }
+    .cta-question {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic; font-size: 1.2rem;
+      color: #1a1a2e; margin: 1.75rem 0 1.25rem;
+    }
+    .btn-demo {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      color: #fff; font-size: 1rem; font-weight: 700;
+      padding: 0.9rem 2.5rem; border-radius: 10px;
+      text-decoration: none; letter-spacing: 0.02em;
+      box-shadow: 0 4px 20px rgba(138,102,210,0.4);
+      transition: all 0.2s;
+    }
+    .btn-demo:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,169,221,0.45); }
+
+    /* YouTube thumbnail link */
+    .yt-wrap {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      aspect-ratio: 16/9; width: 100%;
+      position: relative; display: block;
+      text-decoration: none;
+    }
+    .yt-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.3s ease;
+    }
+    .yt-wrap:hover img { transform: scale(1.03); }
+    .yt-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .yt-play-btn {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(0,0,0,0.72);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+      border: 3px solid rgba(255,255,255,0.85);
+    }
+    .yt-wrap:hover .yt-play-btn {
+      background: #8a66d2;
+      transform: scale(1.1);
+    }
+    .yt-play-btn svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
+
+    /* ── STORYBOARDS SECTION (dark navy) ── */
+    .storyboards {
+      background: #122038;
+      color: #f0f2f8;
+    }
+    .storyboards h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.025em; line-height: 1.2;
+      margin-bottom: 1.25rem; color: #fff;
+    }
+    .storyboards p { font-size: 1rem; color: rgba(240,242,248,0.75); margin-bottom: 1rem; line-height: 1.75; }
+    .storyboards p strong { color: #fff; }
+    .storyboards-img {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+    .storyboards-img img { width: 100%; height: auto; display: block; }
+
+    /* ── PROMPT SECTION (light lavender) ── */
+    .prompt-section { background: #eeeaf8; }
+    .prompt-section h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.025em; line-height: 1.2;
+      color: #1a1a2e; margin-bottom: 1.25rem;
+    }
+    .prompt-section p { font-size: 1rem; color: #4a5568; margin-bottom: 1rem; line-height: 1.75; }
+    .prompt-img {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(138,102,210,0.2);
+    }
+    .prompt-img img { width: 100%; height: auto; display: block; }
+
+    /* ── FOOTER (identical to index.html) ── */
+    footer {
+      background: #18162e; border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-weight: 800; font-size: 1rem;
+      background: linear-gradient(135deg, var(--indigo), var(--coral), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.82rem; color: #8892a4; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #f0f2f8; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .two-col { grid-template-columns: 1fr; }
+      .two-col.reverse-mobile > *:first-child { order: 2; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="./index.html" class="nav-logo">
+      <img src="./logo.png" alt="Journeymaker logo" />
+      <span>Journeymaker</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://journeymaker.io/sign-in" class="btn-ghost">Log In</a>
+      <a href="https://calendly.com/amyjokim/journeymaker-demo" class="btn-nav-primary">Book a Demo</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>JourneyMaker</h1>
+      <h2>Vibe-storyboard your product experience</h2>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section intro">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <p>Vibe-coding tools have democratized software development. Now anyone can quickly spin up a working prototype, app or game.</p>
+          <p>But building what people want? That's a whole different ball game.</p>
+          <p>Storyboards let you <strong>design &amp; test your product experience</strong>, before you've written a line of code.</p>
+          <p>But most people don't have storyboarding skills — so they skip this crucial step.</p>
+          <p>JourneyMaker changes that.</p>
+          <p>We built Journeymaker to democratize storyboarding &amp; make it easy to <strong>vibe-storyboard your product experience</strong>.</p>
+          <p>Use JourneyMaker to</p>
+          <ul class="checklist">
+            <li><strong>Communicate faster</strong> with your team &amp; stakeholders</li>
+            <li><strong>Detect &amp; solve retention problems</strong> early in development</li>
+            <li><strong>Test your product ideas</strong> with high-value customers</li>
+          </ul>
+          <p class="cta-question">Want to vibe-storyboard your product experience?</p>
+          <a href="https://calendly.com/amyjokim/journeymaker-demo" class="btn-demo">Book a Demo →</a>
+        </div>
+        <div>
+          <a href="https://www.youtube.com/watch?v=8qhg7A1H0MU" target="_blank" rel="noopener" class="yt-wrap">
+            <img src="https://img.youtube.com/vi/8qhg7A1H0MU/maxresdefault.jpg"
+                 alt="Watch: Visualize your product journey with AI Storyboards" />
+            <div class="yt-play">
+              <div class="yt-play-btn">
+                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILD STORYBOARDS -->
+  <section class="section storyboards">
+    <div class="container">
+      <div class="two-col reverse-mobile">
+        <div>
+          <h2>Build Product Storyboards in minutes</h2>
+          <p>In Hollywood, filmmakers use storyboards to communicate their vision, plan their shoots, &amp; avoid expensive production delays on set.</p>
+          <p>But storyboards aren't just for movies. Companies like Netflix, Shiseido &amp; General Motors solve tricky retention problems &amp; deliver engaging experiences with storyboards.</p>
+          <p><strong>JourneyMaker puts that power into your hands.</strong> Try it now.</p>
+          <br>
+          <a href="https://calendly.com/amyjokim/journeymaker-demo" class="btn-demo">Book a Demo →</a>
+        </div>
+        <div class="storyboards-img">
+          <img src="./storyboard-demo.gif"
+               alt="Journeymaker generating product storyboards" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAN'T DRAW -->
+  <section class="section prompt-section">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <h2>Can't draw? Now you can prompt</h2>
+          <p>Storyboards are a powerful communication tool for product &amp; marketing teams. But crafting a storyboard takes time &amp; skill that most people don't have.</p>
+          <p>Journeymaker solves that problem. Just follow our prompts &amp; describe what your product does &amp; who it's for — Journeymaker will generate storyboards that show how customers discover, learn &amp; master your product.</p>
+          <p>And Journeymaker doesn't just visualize what you describe — it fills in details based on leading products in your space.</p>
+          <br>
+          <a href="https://calendly.com/amyjokim/journeymaker-demo" class="btn-demo">Book a Demo →</a>
+        </div>
+        <div class="prompt-img">
+          <img src="./prompt-demo.gif"
+               alt="Journeymaker prompt interface showing storyboard generation" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Journeymaker</span>
+      <div class="footer-links">
+        <a href="mailto:hello@journeymaker.io">hello@journeymaker.io</a>
+        <a href="https://journeymaker.io/sign-in">Log In</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
