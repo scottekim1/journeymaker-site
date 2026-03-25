@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Journeymaker — Design the Right User Journey.</title>
-  <meta name="description" content="Journeymaker is an AI-powered journey design tool that creates vivid product storyboards — helping your team, investors, and stakeholders align on the right experience before you build." />
+  <title>Journeymaker — Design your user journey before you build.</title>
+  <meta name="description" content="Journeymaker is an AI tool that turns a product brief into a complete illustrated storyboard — so your team shares a vision before anyone writes a line of code." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -12,23 +12,21 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #08090e;
-      --bg2:      #0f1117;
-      --bg3:      #14161f;
-      --border:   rgba(255,255,255,0.07);
-      --indigo:   #8a66d2;
-      --cyan:     #00a9dd;
-      --orange:   #ffa260;
-      --coral:    #ed6a6a;
-      --yellow:   #ffdf70;
-      --teal:     #00a9dd;
-      --text:     #f0f2f8;
-      --muted:    #8892a4;
-      --card:     rgba(255,255,255,0.04);
+      --indigo:     #8a66d2;
+      --cyan:       #00a9dd;
+      --border:     rgba(255,255,255,0.07);
+      --text:       #f0f2f8;
+      --muted:      #8892a4;
+      --card:       rgba(255,255,255,0.04);
+      --light:      #f7f5ff;
+      --ink:        #1a1a2e;
+      --ink-mid:    #4a5568;
+      --ink-border: rgba(138,102,210,0.18);
+      --dark1:      #221e44;
+      --dark2:      #1a1638;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Inter', sans-serif;
       background: #262046;
@@ -37,293 +35,134 @@
       overflow-x: hidden;
     }
 
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1rem 2.5rem;
-      background: rgba(38,32,70,0.95);
-      backdrop-filter: blur(16px);
+      background: rgba(38,32,70,0.95); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
-    .nav-logo {
-      display: flex; align-items: center; gap: 0.6rem;
-      text-decoration: none;
-    }
-    .nav-logo img {
-      width: 36px; height: 36px; border-radius: 50%;
-    }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .nav-logo img { width: 36px; height: 36px; border-radius: 50%; }
     .nav-logo span {
       font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;
       background: linear-gradient(135deg, var(--indigo), var(--cyan));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .nav-links { display: flex; align-items: center; gap: 1rem; }
-    .btn-ghost {
-      background: transparent; border: 1px solid var(--border);
-      color: var(--muted); padding: 0.45rem 1.1rem; border-radius: 8px;
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; text-decoration: none;
-      transition: all 0.2s;
+    .btn-nav-ghost {
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+      padding: 0.45rem 1.1rem; border-radius: 8px; font-size: 0.875rem; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: all 0.2s;
     }
-    .btn-ghost:hover { border-color: var(--indigo); color: var(--text); }
-    .btn-primary {
+    .btn-nav-ghost:hover { border-color: var(--indigo); color: var(--text); }
+    .btn-nav-primary {
       background: linear-gradient(135deg, var(--indigo), var(--cyan));
       border: none; color: #fff; padding: 0.5rem 1.25rem; border-radius: 8px;
       font-size: 0.875rem; font-weight: 600; cursor: pointer; text-decoration: none;
       transition: all 0.2s; box-shadow: 0 0 20px rgba(138,102,210,0.3);
     }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 30px rgba(138,102,210,0.5); }
+    .btn-nav-primary:hover { transform: translateY(-1px); box-shadow: 0 0 30px rgba(138,102,210,0.5); }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 7rem 2rem 5rem;
-      position: relative; overflow: hidden;
-    }
-    .hero-glow {
-      position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
-      width: 700px; height: 500px; border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(138,102,210,0.18) 0%, rgba(0,169,221,0.08) 50%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: rgba(138,102,210,0.12); border: 1px solid rgba(0,169,221,0.3);
-      color: var(--cyan); font-size: 0.8rem; font-weight: 600;
-      padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.75rem;
-      letter-spacing: 0.05em; text-transform: uppercase;
-    }
-    .hero h1 {
-      font-size: clamp(2.6rem, 6vw, 4.8rem);
-      font-weight: 900; line-height: 1.08; letter-spacing: -0.03em;
-      max-width: 820px; margin-bottom: 1.5rem;
-    }
-    .hero h1 .grad {
-      background: linear-gradient(135deg, var(--cyan) 0%, var(--indigo) 25%, var(--coral) 55%, var(--orange) 75%, var(--yellow) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .hero-sub {
-      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted);
-      max-width: 560px; margin-bottom: 2.5rem; font-weight: 400;
-    }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-    .btn-lg {
-      background: linear-gradient(135deg, var(--indigo), var(--cyan));
-      border: none; color: #fff; padding: 0.85rem 2rem; border-radius: 10px;
-      font-size: 1rem; font-weight: 700; cursor: pointer; text-decoration: none;
-      transition: all 0.2s; box-shadow: 0 0 28px rgba(138,102,210,0.4);
-    }
-    .btn-lg:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,169,221,0.45); }
-    .btn-lg-ghost {
-      background: transparent; border: 1px solid rgba(255,255,255,0.15);
-      color: var(--text); padding: 0.85rem 2rem; border-radius: 10px;
-      font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none;
-      transition: all 0.2s;
-    }
-    .btn-lg-ghost:hover { border-color: var(--indigo); color: var(--indigo); }
-
-    .hero-storyboard {
-      margin-top: 4rem;
-      width: 100%; max-width: 900px;
-      background: #0d1a2e;
-      border: 1px solid rgba(0,169,221,0.2);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,169,221,0.08);
-    }
-    .sb-header {
-      background: #0a1525; padding: 0.75rem 1rem;
-      border-bottom: 1px solid rgba(0,169,221,0.15);
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .sb-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .sb-title { margin-left: 0.5rem; font-size: 0.8rem; color: #6a85a8; font-weight: 500; }
-    .sb-body {
-      padding: 2rem;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
-    }
-    .sb-frame {
-      background: #112040; border: 1px solid rgba(0,169,221,0.18);
-      border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem;
-    }
-    .sb-frame-label {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--cyan);
-    }
-    .sb-wire-title { height: 8px; background: rgba(100,160,220,0.35); border-radius: 4px; width: 75%; }
-    .sb-wire-line { height: 5px; background: rgba(80,130,190,0.22); border-radius: 3px; }
-    .sb-wire-line.w80 { width: 80%; }
-    .sb-wire-line.w60 { width: 60%; }
-    .sb-wire-line.w90 { width: 90%; }
-    .sb-wire-btn {
-      height: 20px; border-radius: 5px; margin-top: 0.4rem;
-      background: linear-gradient(135deg, rgba(138,102,210,0.65), rgba(0,169,221,0.5));
-      width: 60%;
-    }
-    .sb-arrow {
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 1.2rem;
-    }
-
-    /* ── SECTIONS ── */
-    section { padding: 6rem 2rem; }
+    /* ── SHARED ── */
     .container { max-width: 1100px; margin: 0 auto; }
+    section { padding: 6rem 2rem; }
     .section-tag {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
       background: linear-gradient(90deg, var(--indigo), var(--cyan));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       margin-bottom: 1rem; display: inline-block;
     }
     .section-h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
-      letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 1.25rem;
+      font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.12; margin-bottom: 1.25rem;
     }
-    .section-sub { font-size: 1.1rem; color: var(--muted); max-width: 560px; }
+    .section-sub { font-size: 1.05rem; line-height: 1.75; max-width: 580px; }
+    .btn-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      color: #fff; padding: 0.85rem 2rem; border-radius: 10px;
+      font-size: 1rem; font-weight: 700; text-decoration: none;
+      transition: all 0.2s; box-shadow: 0 0 28px rgba(138,102,210,0.4);
+    }
+    .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,169,221,0.45); }
+    .btn-cta-sm {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      color: #fff; padding: 0.7rem 1.6rem; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 700; text-decoration: none;
+      transition: all 0.2s; box-shadow: 0 0 18px rgba(138,102,210,0.3);
+      align-self: flex-start;
+    }
+    .btn-cta-sm:hover { transform: translateY(-1px); box-shadow: 0 0 28px rgba(0,169,221,0.4); }
 
-    /* ── PROBLEM ── */
-    .problem { background: #fff; } /* white */
-    .problem .section-h2 { color: #1a1a2e; }
-    .problem .section-tag { /* gradient text works on both */ }
-    .problem-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-      margin-top: 3.5rem;
+    /* ── HERO ── */
+    .hero {
+      min-height: 60vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 5rem 2rem 4rem;
+      position: relative; overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(18,10,45,0.55) 0%, rgba(24,18,52,0.68) 100%),
+        url('./hero-bg.jpg') center / cover no-repeat;
     }
-    .problem-quote {
-      font-family: 'DM Serif Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-style: italic; line-height: 1.35; color: #1a1a2e;
+    .hero-glow {
+      position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%);
+      width: 600px; height: 400px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(138,102,210,0.13) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .problem-quote .hl { color: var(--cyan); font-style: normal; }
-    .problem-points { display: flex; flex-direction: column; gap: 1.25rem; }
-    .problem-point {
-      display: flex; gap: 1rem; align-items: flex-start;
-      background: #f5f3ff; border: 1px solid rgba(138,102,210,0.18);
-      border-radius: 12px; padding: 1.25rem;
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(138,102,210,0.12); border: 1px solid rgba(0,169,221,0.28);
+      color: var(--cyan); font-size: 0.78rem; font-weight: 600;
+      padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 2rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
     }
-    .problem-icon {
-      width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
-      background: rgba(138,102,210,0.15);
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+      font-weight: 900; line-height: 1.1; letter-spacing: -0.03em;
+      max-width: 820px; margin-bottom: 1.75rem;
     }
-    .problem-point h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; color: #1a1a2e; }
-    .problem-point p { font-size: 0.875rem; color: #4a5568; }
-
-    /* ── WHAT IT DOES ── */
-    .how { background: #fff; } /* white */
-    .how .section-h2 { color: #1a1a2e; }
-    .how .section-sub { color: #4a5568; }
-    .steps {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-      margin-top: 3.5rem;
-    }
-    .step {
-      background: #f5f3ff; border: 1px solid rgba(138,102,210,0.18);
-      border-radius: 16px; padding: 2rem; position: relative;
-    }
-    .step-num {
-      font-size: 0.75rem; font-weight: 800; color: var(--indigo);
-      letter-spacing: 0.1em; margin-bottom: 1rem;
-    }
-    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; color: #1a1a2e; }
-    .step p { font-size: 0.9rem; color: #4a5568; }
-
-    /* ── JOURNEYS ── */
-    .journeys { background: #1a1638; } /* dark purple */
-    .journey-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;
-      margin-top: 3.5rem;
-    }
-    .journey-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 2rem;
-      transition: all 0.25s;
-    }
-    .journey-card:hover {
-      border-color: rgba(0,169,221,0.4);
-      background: rgba(138,102,210,0.07);
-      transform: translateY(-2px);
-    }
-    .journey-icon {
-      font-size: 1.8rem; margin-bottom: 1rem;
-    }
-    .journey-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .journey-card p { font-size: 0.9rem; color: var(--muted); }
-
-    /* ── WHO ── */
-    .who { background: #fff; } /* white */
-    .who .section-h2 { color: #1a1a2e; }
-    .who-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
-      margin-top: 3.5rem;
-    }
-    .who-card {
-      background: #f5f3ff; border: 1px solid rgba(138,102,210,0.18);
-      border-radius: 14px; padding: 1.5rem; text-align: center;
-    }
-    .who-card .who-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
-    .who-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: #1a1a2e; }
-    .who-card p { font-size: 0.82rem; color: #4a5568; }
-
-    /* ── TEAM ── */
-    .team { background: #fff; } /* white */
-    .team .section-h2 { color: #1a1a2e; }
-    .team .section-sub { color: #4a5568; }
-    .team-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-      margin-top: 3.5rem;
-    }
-    .team-card {
-      background: #f5f3ff; border: 1px solid rgba(138,102,210,0.18);
-      border-radius: 16px; padding: 2rem; text-align: center;
-    }
-    .team-avatar {
-      width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 1rem;
-      background: linear-gradient(135deg, var(--indigo), var(--coral), var(--cyan));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; font-weight: 800; color: #fff;
-    }
-    .team-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; color: #1a1a2e; }
-    .team-card .role { font-size: 0.82rem; color: var(--indigo); font-weight: 600; margin-bottom: 0.6rem; }
-    .team-card p { font-size: 0.85rem; color: #4a5568; }
-
-    /* ── CTA BAND ── */
-    .cta-band {
-      background: linear-gradient(135deg, #262046 0%, #102c42 50%, #0e2840 100%);
-      border-top: 1px solid rgba(138,102,210,0.25);
-      border-bottom: 1px solid rgba(0,169,221,0.2);
-      text-align: center; padding: 6rem 2rem;
-    }
-    .cta-band h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
-      letter-spacing: -0.025em; margin-bottom: 1rem;
-    }
-    .cta-band p { font-size: 1.1rem; color: var(--muted); margin-bottom: 2.5rem; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: #18162e; border-top: 1px solid var(--border);
-      padding: 2.5rem 2rem; text-align: center;
-    }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-    }
-    .footer-logo {
-      font-weight: 800; font-size: 1rem;
-      background: linear-gradient(135deg, var(--indigo), var(--coral), var(--cyan));
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--cyan), var(--indigo));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    footer p { font-size: 0.82rem; color: var(--muted); }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--text); }
-
-    /* ── INDUSTRY VOICES ── */
-    .voices { background: #221e44; } /* dark purple */
-    .voice-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-      margin-top: 3.5rem;
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(240,242,248,0.75);
+      max-width: 580px; margin-bottom: 2.75rem; font-weight: 400; line-height: 1.7;
     }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      background: #18162e;
+      border-top: 1px solid rgba(138,102,210,0.2);
+      border-bottom: 1px solid rgba(0,169,221,0.1);
+    }
+    .stat-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: center;
+    }
+    .stat { padding: 1.75rem 1.25rem; text-align: center; }
+    .stat-num {
+      display: block; font-family: 'DM Serif Display', serif;
+      font-size: 1.45rem; color: var(--text); line-height: 1.1; margin-bottom: 0.25rem;
+    }
+    .stat-label { font-size: 0.72rem; color: var(--muted); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+    .stat-div { width: 1px; height: 2.5rem; background: rgba(255,255,255,0.07); }
+
+    /* ── PROBLEM + VOICES ── */
+    .voices-section { background: var(--dark1); }
+    .voices-intro { max-width: 680px; margin-bottom: 3.5rem; }
+    .voices-intro .section-sub { color: var(--muted); }
+    .voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .voice-card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: 16px; padding: 2rem;
@@ -331,52 +170,217 @@
     }
     .voice-card blockquote {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem; font-style: italic; line-height: 1.5;
+      font-size: 1.25rem; font-style: italic; line-height: 1.5;
       color: var(--text); flex: 1;
     }
     .voice-card blockquote::before {
-      content: '\201C';
-      font-size: 2.5rem; line-height: 0; vertical-align: -0.5rem;
-      color: var(--indigo); margin-right: 0.1rem;
+      content: '\201C'; font-size: 3rem; line-height: 0;
+      vertical-align: -0.55rem; color: var(--indigo); margin-right: 0.1rem;
     }
     .voice-attr {
       border-top: 1px solid var(--border); padding-top: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .voice-photo {
+      width: 40px; height: 40px; border-radius: 50%;
+      object-fit: cover; object-position: center top; flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .voice-logo {
+      height: 28px; width: auto; max-width: 110px; object-fit: contain;
+      flex-shrink: 0; filter: brightness(0) invert(0.85);
+    }
+    .voice-initials {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: #fff;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      border: 1px solid rgba(255,255,255,0.12);
     }
     .voice-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
-    .voice-title { font-size: 0.8rem; color: var(--muted); margin-top: 0.15rem; }
+    .voice-title { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
 
-    /* ── TESTIMONIALS ── */
-    .testimonials { background: #221e44; } /* dark purple */
+    /* ── VIDEO DEMO (white) ── */
+    .demo-section { background: #fff; padding: 6rem 2rem; }
+    .demo-inner {
+      display: grid; grid-template-columns: 1fr 1.65fr;
+      gap: 4rem; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .demo-text { display: flex; flex-direction: column; gap: 1rem; }
+    .demo-section .section-h2 { color: var(--ink); }
+    .demo-text .section-sub { color: var(--ink-mid); font-size: 0.95rem; line-height: 1.8; }
+    .vid-wrap {
+      position: relative; padding-top: 56.25%;
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(138,102,210,0.18);
+    }
+    .vid-wrap video,
+    .vid-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    /* ── HOW IT WORKS (dark) ── */
+    .how-row { padding: 6rem 2rem; }
+    .how-row.dark { background: var(--dark1); }
+    .how-row.light { background: var(--light); }
+    .feature-row {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4.5rem; align-items: center;
+    }
+    .feature-row.flip { direction: rtl; }
+    .feature-row.flip > * { direction: ltr; }
+    .feature-text { display: flex; flex-direction: column; gap: 1rem; }
+    .feature-text p { font-size: 0.95rem; line-height: 1.8; }
+    .feature-text.dark-text p { color: var(--muted); }
+    .feature-text.dark-text .section-h2 { color: var(--text); }
+    .feature-text.light-text p { color: var(--ink-mid); }
+    .feature-text.light-text .section-h2 { color: var(--ink); }
+    .feature-media { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+    .feature-gif { width: 100%; display: block; border-radius: 12px; }
+
+    /* ── TESTIMONIALS (white) ── */
+    .testi-section { background: #fff; }
+    .testi-section .section-h2 { color: var(--ink); }
     .testi-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
       margin-top: 3.5rem;
     }
     .testi-card {
-      background: var(--card); border: 1px solid var(--border);
+      background: rgba(138,102,210,0.05); border: 1px solid rgba(138,102,210,0.15);
       border-radius: 16px; padding: 1.75rem;
       display: flex; flex-direction: column; gap: 1rem;
     }
-    .testi-stars { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.1em; }
+    .testi-stars { color: #c9a430; font-size: 0.85rem; letter-spacing: 0.1em; }
     .testi-card blockquote {
-      font-size: 0.92rem; line-height: 1.65; color: var(--text); flex: 1;
-      font-style: italic;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem; font-style: italic; line-height: 1.65; color: var(--ink); flex: 1;
     }
     .testi-attr {
-      border-top: 1px solid var(--border); padding-top: 0.9rem;
+      border-top: 1px solid rgba(138,102,210,0.15); padding-top: 0.9rem;
+      display: flex; align-items: center; gap: 0.75rem;
     }
-    .testi-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
-    .testi-title { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .testi-photo {
+      width: 40px; height: 40px; border-radius: 50%;
+      object-fit: cover; object-position: center top; flex-shrink: 0;
+      border: 1px solid rgba(138,102,210,0.2);
+    }
+    .testi-initials {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: #fff;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      border: 1px solid rgba(138,102,210,0.2);
+    }
+    .testi-name { font-size: 0.88rem; font-weight: 700; color: var(--ink); }
+    .testi-title { font-size: 0.78rem; color: var(--ink-mid); margin-top: 0.1rem; }
+
+    /* ── AMY JO (dark) ── */
+    .ajk-section { background: var(--dark1); }
+    .ajk-inner {
+      display: grid; grid-template-columns: 1fr 1.8fr; gap: 5rem; align-items: start;
+      margin-top: 3rem;
+    }
+    .ajk-photo-wrap { position: relative; }
+    .ajk-photo-wrap::after {
+      content: ''; position: absolute; bottom: -0.75rem; right: -0.75rem;
+      width: 100%; height: 100%; border: 1px solid rgba(138,102,210,0.35); z-index: -1;
+    }
+    .ajk-photo {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top;
+      display: block; background: linear-gradient(160deg, #3d2f7a, #8a66d2); border-radius: 4px;
+    }
+    .ajk-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--text); margin-top: 1.1rem; margin-bottom: 0.2rem; }
+    .ajk-title { font-size: 0.82rem; color: var(--cyan); font-weight: 600; }
+    h2.ajk-right { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; color: var(--text); margin-bottom: 1.5rem; }
+    .ajk-section p { color: rgba(240,242,248,0.78); font-size: 0.95rem; line-height: 1.85; margin-bottom: 1rem; }
+    .ajk-creds { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .ajk-cred {
+      font-size: 0.77rem; padding: 0.28rem 0.85rem;
+      background: rgba(138,102,210,0.15); border: 1px solid rgba(138,102,210,0.35);
+      color: var(--indigo); border-radius: 100px; font-weight: 500;
+    }
+    .team-credits {
+      margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);
+      display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .team-credit h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+    .team-credit .role { font-size: 0.75rem; color: var(--cyan); font-weight: 600; margin-bottom: 0.2rem; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, #262046 0%, #0f2a40 60%, #0b2236 100%);
+      border-top: 1px solid rgba(138,102,210,0.22);
+      text-align: center; padding: 6rem 2rem;
+    }
+    /* ── BOOK DEMO ── */
+    .book-demo {
+      background: #1a1638;
+      padding: 5rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .book-demo h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .book-demo p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .calendly-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .cta-band h2 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800;
+      letter-spacing: -0.025em; margin-bottom: 1rem;
+    }
+    .cta-band p { font-size: 1.05rem; color: var(--muted); margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    /* ── FOOTER ── */
+    footer { background: #18162e; border-top: 1px solid var(--border); padding: 2rem 2.5rem; }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-weight: 800; font-size: 1rem;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    footer p { font-size: 0.8rem; color: var(--muted); }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .feature-row, .feature-row.flip { grid-template-columns: 1fr; direction: ltr; gap: 2.5rem; }
+      .demo-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .ajk-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .ajk-photo { aspect-ratio: 4/3; }
+      .voice-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 768px) {
       nav { padding: 1rem 1.25rem; }
-      .sb-body { grid-template-columns: repeat(2, 1fr); }
-      .problem-grid, .steps, .journey-grid, .team-grid, .voice-grid, .testi-grid { grid-template-columns: 1fr; }
-      .who-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-inner { grid-template-columns: 1fr 1fr; gap: 0; }
+      .stat-div { display: none; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .team-credits { flex-direction: column; gap: 1.25rem; }
     }
     @media (max-width: 480px) {
-      .who-grid { grid-template-columns: 1fr; }
-      .sb-body { grid-template-columns: 1fr; }
+      .stat-inner { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -389,315 +393,322 @@
       <span>Journeymaker</span>
     </a>
     <div class="nav-links">
-      <a href="https://journeymaker.io/sign-in" class="btn-ghost">Log In</a>
-      <a href="./demo.html" class="btn-primary">Book a Demo</a>
+      <a href="https://journeymaker.io/sign-in" class="btn-nav-ghost">Log In</a>
+      <a href="#book-demo" class="btn-nav-primary">Book a Demo</a>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ① HERO -->
   <section class="hero">
     <div class="hero-glow"></div>
     <div class="hero-tag">✦ AI-Powered Journey Design</div>
-    <h1>Design the Right<br>User Journey.<br><span class="grad">Build What Sticks.</span></h1>
+    <h1>You can ship in a weekend now.<br><em>Do you know if your users will come back?</em></h1>
     <p class="hero-sub">
-      Vibe coding lets you build faster than ever. But building the <em>right</em> thing?
-      That's another story. Journeymaker turns a brief product description into a
-      vividly illustrated user journey that aligns your team before you write a line of code.
+      Journeymaker turns a product brief into a complete illustrated storyboard —
+      giving your whole team a shared vision of the user experience
+      before anyone writes a line of code.
     </p>
-    <div class="hero-ctas">
-      <a href="./demo.html" class="btn-lg">Book a Demo →</a>
-    </div>
-
+    <a href="#book-demo" class="btn-cta">Book a Demo →</a>
   </section>
 
-  <!-- PROBLEM -->
-  <section class="problem">
-    <div class="container">
-      <div class="section-tag">The Problem</div>
-      <h2 class="section-h2">The Mechanics Trap</h2>
-      <div class="problem-grid">
-        <div>
-          <p class="problem-quote">
-            "AI tools let teams build software faster than ever.<br>
-            But speed without direction just means arriving at the
-            <span class="hl">wrong destination faster.</span>"
-          </p>
-          <p style="margin-top:1.5rem; color: #4a5568; font-size:0.95rem; line-height:1.7;">
-            Teams fall in love with what they can build — not with what users will
-            come back for. The result: products that impress on first use and
-            disappoint over time. More features. Deeper problems.
-          </p>
-        </div>
-        <div class="problem-points">
-          <div class="problem-point">
-            <div class="problem-icon">⚡</div>
-            <div>
-              <h4>Built fast, abandoned faster</h4>
-              <p>Vibe coding accelerates execution. It doesn't tell you what to build or why users will return.</p>
-            </div>
-          </div>
-          <div class="problem-point">
-            <div class="problem-icon">🗺️</div>
-            <div>
-              <h4>No shared map</h4>
-              <p>Sales, onboarding, UX, and engineering each imagine a different journey. Nobody has a shared visual.</p>
-            </div>
-          </div>
-          <div class="problem-point">
-            <div class="problem-icon">🔧</div>
-            <div>
-              <h4>Tools optimize for building, not discovering</h4>
-              <p>Every tool in the product stack is better at execution than at figuring out what to execute.</p>
-            </div>
-          </div>
-        </div>
+  <!-- ② PROOF STRIP -->
+  <div class="stat-strip">
+    <div class="stat-inner">
+      <div class="stat">
+        <span class="stat-num">25+ years</span>
+        <span class="stat-label">Journey Design Research</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num">500+</span>
+        <span class="stat-label">Product Teams Coached</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num">Netflix · GM · Replika</span>
+        <span class="stat-label">Clients who've used the methodology</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num">10</span>
+        <span class="stat-label">Minutes from brief to storyboard</span>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- INDUSTRY VOICES -->
-  <section class="voices">
+  <!-- ③ PROBLEM + INDUSTRY VOICES -->
+  <section class="voices-section">
     <div class="container">
-      <div class="section-tag">The Moment We're In</div>
-      <h2 class="section-h2">The industry is naming<br>the same problem</h2>
-      <p class="section-sub">Vibe coding changed how fast you can build. It didn't change the harder question.</p>
+      <div class="voices-intro reveal">
+        <div class="section-tag">The Moment We're In</div>
+        <h2 class="section-h2">AI gives you speed.<br>Not direction.</h2>
+        <p class="section-sub" style="color: var(--muted);">
+          Vibe coding lets any team spin up a working product in hours.
+          But building what people actually want — and come back to —
+          is a different problem. The industry is naming it.
+        </p>
+      </div>
       <div class="voice-grid">
-        <div class="voice-card">
+        <div class="voice-card reveal">
           <blockquote>
-            There's a new kind of coding I call 'vibe coding', where you fully give in to the vibes, embrace exponentials, and forget that the code even exists.
+            There's a new kind of coding I call 'vibe coding' — where you fully give in to the vibes, embrace exponentials, and forget that the code even exists.
           </blockquote>
           <div class="voice-attr">
-            <div class="voice-name">Andrej Karpathy</div>
-            <div class="voice-title">Former Director of AI, Tesla · Co-founder, OpenAI</div>
+            <img src="./andrej-karpathy.jpg" alt="Andrej Karpathy" class="voice-photo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="voice-initials" style="display:none">AK</div>
+            <div>
+              <div class="voice-name">Andrej Karpathy</div>
+              <div class="voice-title">Former Director of AI, Tesla · Co-founder, OpenAI</div>
+            </div>
           </div>
         </div>
-        <div class="voice-card">
+        <div class="voice-card reveal">
           <blockquote>
             As AI accelerates, design will be the differentiator. The teams that win are the ones with better design judgment — not just faster tools.
           </blockquote>
           <div class="voice-attr">
-            <div class="voice-name">Dylan Field</div>
-            <div class="voice-title">CEO, Figma</div>
+            <img src="./dylan-field.jpg" alt="Dylan Field" class="voice-photo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="voice-initials" style="display:none">DF</div>
+            <div>
+              <div class="voice-name">Dylan Field</div>
+              <div class="voice-title">CEO, Figma</div>
+            </div>
           </div>
         </div>
-        <div class="voice-card">
+        <div class="voice-card reveal">
           <blockquote>
             If your problem framing is weak, AI will accelerate the wrong solution. Building faster doesn't close the discovery gap — it makes it more expensive.
           </blockquote>
           <div class="voice-attr">
-            <div class="voice-name">Industry Analysis</div>
-            <div class="voice-title">Productside · AI Product Management Workflows, 2025</div>
+            <img src="./product-side-logo.jpg" alt="Productside" class="voice-logo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="voice-initials" style="display:none;background:linear-gradient(135deg,#4a5568,#6b7280);font-size:0.6rem;">PS</div>
+            <div>
+              <div class="voice-name">Industry Analysis</div>
+              <div class="voice-title">Productside · AI Product Management Workflows, 2025</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="how" id="how-it-works">
-    <div class="container">
-      <div class="section-tag">How It Works</div>
-      <h2 class="section-h2">From brief description<br>to team-ready storyboard</h2>
-      <p class="section-sub">Three steps from idea to a vivid, shareable product journey.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">STEP 01</div>
-          <h3>Describe your product</h3>
-          <p>Tell Journeymaker what you're building and who it's for. A sentence or two is enough to get started. No methodology required.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">STEP 02</div>
-          <h3>Journeymaker designs the journey</h3>
-          <p>Our AI generates a plausible, opinionated journey — complete with wireframe-style storyboard panels showing each stage of the user experience.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">STEP 03</div>
-          <h3>Refine and share</h3>
-          <p>Upload your pitch deck, customer interview transcripts, or team feedback to sharpen the design. Then share with your team, investors, or stakeholders.</p>
-        </div>
+  <!-- ④ SEE IT IN ACTION -->
+  <section class="demo-section">
+    <div class="demo-inner">
+      <div class="demo-text reveal">
+        <div class="section-tag">See It In Action</div>
+        <h2 class="section-h2">From description<br>to storyboard<br>in under 10 minutes</h2>
+        <p class="section-sub">In Hollywood, filmmakers use storyboards to plan shoots and avoid expensive mistakes on set. The same logic applies to software — except most teams skip it.</p>
+        <p class="section-sub">Watch Amy Jo build a complete illustrated user journey live — the same process that teams at Netflix, Shiseido, and GM use to align before a line of code is written.</p>
+        <a href="#book-demo" class="btn-cta-sm">Book a Demo →</a>
+      </div>
+      <div class="vid-wrap reveal">
+        <video controls preload="none" poster="./video-poster.jpg">
+          <source src="./yt394-journeymaker-pitch-9-kevyn-2-changes.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
 
-  <!-- JOURNEY TYPES -->
-  <section class="journeys">
-    <div class="container">
-      <div class="section-tag">What You Can Map</div>
-      <h2 class="section-h2">Every journey your<br>product depends on</h2>
-      <p class="section-sub">Journeymaker handles the four journeys that make or break a product.</p>
-      <div class="journey-grid">
-        <div class="journey-card">
-          <div class="journey-icon">🎯</div>
-          <h3>Sales Journey</h3>
-          <p>Map the path from first awareness to signed customer. Align your sales team on the experience you're promising — before you promise it.</p>
-        </div>
-        <div class="journey-card">
-          <div class="journey-icon">🚀</div>
-          <h3>Onboarding Journey</h3>
-          <p>Design the critical first hours and days. Show exactly how a new user goes from curious to competent to committed.</p>
-        </div>
-        <div class="journey-card">
-          <div class="journey-icon">🔄</div>
-          <h3>Product Lifecycle Journey</h3>
-          <p>Visualize how users deepen their engagement over weeks and months — from early adopter to power user to advocate.</p>
-        </div>
-        <div class="journey-card">
-          <div class="journey-icon">✨</div>
-          <h3>Feature Journey</h3>
-          <p>Before you build a new feature, design the journey it creates. Understand adoption, habit formation, and long-term value.</p>
-        </div>
+  <!-- ⑤ HOW IT WORKS -->
+  <div class="how-row dark">
+    <div class="feature-row flip">
+      <div class="feature-text dark-text reveal">
+        <div class="section-tag">How It Works</div>
+        <h2 class="section-h2">Can't draw?<br>Now you can prompt.</h2>
+        <p>Crafting a storyboard takes time and skill most teams don't have — so they skip this crucial step entirely.</p>
+        <p>Just describe what your product does and who it's for. Journeymaker generates storyboards that show how customers discover, learn, and master your product. It fills in details based on leading products in your space — so you get an opinionated starting point, not a blank canvas.</p>
+        <a href="#book-demo" class="btn-cta-sm">Book a Demo →</a>
+      </div>
+      <div class="feature-media reveal">
+        <video class="feature-gif" autoplay loop muted playsinline>
+          <source src="./yt394 journeymaker pitch 8 music GIF 2.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- WHO IT'S FOR -->
-  <section class="who">
+  <!-- ⑥ TESTIMONIALS -->
+  <section class="testi-section">
     <div class="container">
-      <div class="section-tag">Who It's For</div>
-      <h2 class="section-h2">Built for teams who need<br>to get it right</h2>
-      <div class="who-grid">
-        <div class="who-card">
-          <div class="who-icon">🏗️</div>
-          <h4>Startup Founders</h4>
-          <p>Validate your product journey before you build. Show investors a storyboard, not just a pitch deck.</p>
-        </div>
-        <div class="who-card">
-          <div class="who-icon">📦</div>
-          <h4>Product Teams</h4>
-          <p>Align engineering, design, and sales on a single shared journey before anyone writes a spec.</p>
-        </div>
-        <div class="who-card">
-          <div class="who-icon">🎨</div>
-          <h4>UX Designers</h4>
-          <p>Generate journey storyboards for client presentations in minutes, not days.</p>
-        </div>
-        <div class="who-card">
-          <div class="who-icon">🌱</div>
-          <h4>Accelerators</h4>
-          <p>Give every cohort company a structured path to product-market fit.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials">
-    <div class="container">
-      <div class="section-tag">What People Are Saying</div>
-      <h2 class="section-h2">Trusted by product builders<br>at every scale</h2>
-      <p class="section-sub">From Fortune 500s to early-stage startups, teams rely on Amy Jo Kim's Journey Design methodology.</p>
+      <div class="section-tag reveal">What People Are Saying</div>
+      <h2 class="section-h2 reveal">Trusted by product builders<br>at every scale</h2>
+      <p class="section-sub reveal" style="color: var(--ink-mid);">
+        From Fortune 500s to early-stage startups — teams rely on Amy Jo Kim's Journey Design methodology.
+      </p>
       <div class="testi-grid">
-        <div class="testi-card">
+        <div class="testi-card reveal">
           <div class="testi-stars">★★★★★</div>
-          <blockquote>
-            "It's like having a world-class designer showing up at your door and designing a product for you."
-          </blockquote>
+          <blockquote>"It's like having a world-class designer showing up at your door and designing a product for you."</blockquote>
           <div class="testi-attr">
-            <div class="testi-name">Eugenia Kuyda</div>
-            <div class="testi-title">CEO, Replika</div>
+            <img src="./eugenia-kudya.jpeg" alt="Eugenia Kuyda" class="testi-photo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="testi-initials" style="display:none">EK</div>
+            <div>
+              <div class="testi-name">Eugenia Kuyda</div>
+              <div class="testi-title">CEO, Replika</div>
+            </div>
           </div>
         </div>
-        <div class="testi-card">
+        <div class="testi-card reveal">
           <div class="testi-stars">★★★★★</div>
-          <blockquote>
-            "Journey Design saved us from struggling through Customer Discovery on our own."
-          </blockquote>
+          <blockquote>"Journey Design saved us from struggling through Customer Discovery on our own."</blockquote>
           <div class="testi-attr">
-            <div class="testi-name">Nana Janashia</div>
-            <div class="testi-title">CEO, Techworld with Nana</div>
+            <img src="./Nana-Janashia.jpg" alt="Nana Janashia" class="testi-photo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="testi-initials" style="display:none">NJ</div>
+            <div>
+              <div class="testi-name">Nana Janashia</div>
+              <div class="testi-title">CEO, Techworld with Nana</div>
+            </div>
           </div>
         </div>
-        <div class="testi-card">
+        <div class="testi-card reveal">
           <div class="testi-stars">★★★★★</div>
-          <blockquote>
-            "This program made me a better, more strategic product maker."
-          </blockquote>
+          <blockquote>"This program made me a better, more strategic product maker."</blockquote>
           <div class="testi-attr">
-            <div class="testi-name">Robin Allenson</div>
-            <div class="testi-title">CEO, similar.ai</div>
+            <img src="./robin-allenson.jpeg" alt="Robin Allenson" class="testi-photo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="testi-initials" style="display:none">RA</div>
+            <div>
+              <div class="testi-name">Robin Allenson</div>
+              <div class="testi-title">CEO, similar.ai</div>
+            </div>
           </div>
         </div>
-        <div class="testi-card">
+        <div class="testi-card reveal">
           <div class="testi-stars">★★★★★</div>
-          <blockquote>
-            "How do I find the right people to talk to? Journey Design made it super easy."
-          </blockquote>
+          <blockquote>"How do I find the right people to talk to? Journey Design made it super easy."</blockquote>
           <div class="testi-attr">
-            <div class="testi-name">Cara Meverden</div>
-            <div class="testi-title">Podcasts, Apple</div>
+            <img src="./cara-meverden.jpg" alt="Cara Meverden" class="testi-photo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="testi-initials" style="display:none">CM</div>
+            <div>
+              <div class="testi-name">Cara Meverden</div>
+              <div class="testi-title">Podcasts, Apple</div>
+            </div>
           </div>
         </div>
-        <div class="testi-card">
+        <div class="testi-card reveal">
           <div class="testi-stars">★★★★★</div>
-          <blockquote>
-            "Journey Design is WAY better than gamification."
-          </blockquote>
+          <blockquote>"Journey Design is WAY better than gamification."</blockquote>
           <div class="testi-attr">
-            <div class="testi-name">Ian Brand</div>
-            <div class="testi-title">Product Innovation, General Motors</div>
+            <img src="./ian-brand.jpg" alt="Ian Brand" class="testi-photo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="testi-initials" style="display:none">IB</div>
+            <div>
+              <div class="testi-name">Ian Brand</div>
+              <div class="testi-title">Product Innovation, General Motors</div>
+            </div>
           </div>
         </div>
-        <div class="testi-card" style="background: linear-gradient(135deg, rgba(138,102,210,0.1), rgba(0,169,221,0.06)); border-color: rgba(138,102,210,0.25);">
-          <div class="testi-stars" style="color: var(--cyan);">✦ ✦ ✦</div>
-          <blockquote style="font-family: 'DM Serif Display', serif; font-size: 1rem;">
-            "The methodology behind Journeymaker is the same one that helped Netflix, Replika, and dozens of hit games create products people come back to."
-          </blockquote>
+        <div class="testi-card reveal">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote>"Amy Jo has a refined, effective process for bringing new ideas to life."</blockquote>
           <div class="testi-attr">
-            <div class="testi-name">Amy Jo Kim</div>
-            <div class="testi-title">Co-Founder & CEO, Journeymaker</div>
+            <img src="./blair-ethington.jpeg" alt="Blair Ethington" class="testi-photo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="testi-initials" style="display:none">BE</div>
+            <div>
+              <div class="testi-name">Blair Ethington</div>
+              <div class="testi-title">VP Product, eBay</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TEAM -->
-  <section class="team">
+  <!-- ⑦ AMY JO -->
+  <section class="ajk-section">
     <div class="container">
-      <div class="section-tag">The Team</div>
-      <h2 class="section-h2">Built by journey design<br>experts</h2>
-      <p class="section-sub">We've spent decades studying how people engage with products, games, and communities over time.</p>
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-avatar">AK</div>
-          <h3>Amy Jo Kim</h3>
-          <div class="role">Co-Founder & CEO</div>
-          <p>Pioneer of social game design and community engagement. Author, speaker, and advisor to hundreds of product teams on the art of building products people return to.</p>
+      <div class="section-tag reveal">The Methodology</div>
+      <h2 class="section-h2 reveal">Built on 25 years of<br>game-thinking research</h2>
+      <div class="ajk-inner">
+        <div class="reveal">
+          <div class="ajk-photo-wrap">
+            <img src="./13.1%20HEADSHOT-amy-jo-kim.jpg" alt="Amy Jo Kim" class="ajk-photo">
+          </div>
+          <div class="ajk-name">Amy Jo Kim, Ph.D.</div>
+          <div class="ajk-title">Co-Founder &amp; CEO, Journeymaker</div>
         </div>
-        <div class="team-card">
-          <div class="team-avatar">PM</div>
-          <h3>Piyush Mahajan</h3>
-          <div class="role">Lead Engineer</div>
-          <p>Full-stack engineer with deep expertise in building AI-native SaaS platforms. Architecting Journeymaker's core infrastructure and product engine.</p>
-        </div>
-        <div class="team-card">
-          <div class="team-avatar">SK</div>
-          <h3>Scott Kim</h3>
-          <div class="role">Co-Founder & CTO</div>
-          <p>Designer and AI builder with decades of experience in puzzle design, learning systems, and AI-powered product development. Building the agents that make Journeymaker smart.</p>
+        <div class="reveal">
+          <h2 class="ajk-right">A strategist &amp; trusted advisor.</h2>
+          <p>Amy Jo Kim is a game designer and product strategist whose work has reached 100M+ people — including The Sims, Ultima Online, Rock Band, and Covet Fashion. She's worked alongside founders and product teams at Netflix, Disney, Google, Tesla, Replika, and Apollo Neuro, and created the Game Thinking methodology — a framework that distills the best practices of game design into a step-by-step system for building high-retention products.</p>
+          <p>She's a strategist and pattern-matcher who has seen what works — and what fails — across hundreds of products and dozens of categories. She challenges assumptions, names the blind spots, and sharpens your thinking.</p>
+          <p>After two decades of guiding product teams through journey design by hand, Amy Jo built Journeymaker to make that process fast and accessible — so every team can design the user journey before they build it, not after.</p>
+          <div class="ajk-creds">
+            <span class="ajk-cred">Author · Community Building on the Web</span>
+            <span class="ajk-cred">Advisor · Netflix, GM, Shiseido</span>
+            <span class="ajk-cred">Speaker · GDC, SXSW, Lean Startup</span>
+            <span class="ajk-cred">Ph.D. · USC</span>
+          </div>
+          <div class="team-credits">
+            <div class="team-credit">
+              <div class="role">Lead Engineer</div>
+              <h4>Piyush Mahajan</h4>
+              <p>Full-stack engineer. Architecting Journeymaker's AI infrastructure and product engine.</p>
+            </div>
+            <div class="team-credit">
+              <div class="role">Co-Founder &amp; Agent Engineer</div>
+              <h4>Scott Kim</h4>
+              <p>Agent designer and AI builder. Builds the systems that make Journeymaker smart.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA BAND -->
+  <!-- ⑧ CTA -->
   <section class="cta-band">
     <div class="container">
-      <h2>Ready to design the<br>journey that works?</h2>
-      <p>See Journeymaker in action. 30-minute demo, no commitment.</p>
-      <a href="./demo.html" class="btn-lg">Book Your Demo →</a>
+      <h2>Ready to design the journey<br>before you build it?</h2>
+      <p>See Journeymaker in action. 30 minutes, no commitment.</p>
+      <a href="#book-demo" class="btn-cta">Book Your Demo →</a>
     </div>
   </section>
+
+  <!-- BOOK A DEMO -->
+  <section class="book-demo" id="book-demo">
+    <div class="container">
+      <h2>Book a Demo</h2>
+      <p>30 minutes with Amy. See Journeymaker turn your product brief into a storyboard — live.</p>
+      <div class="calendly-wrap">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/amyjokim/journeymaker" style="min-width:320px;height:1050px;"></div>
+      </div>
+    </div>
+  </section>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <span class="footer-logo">Journeymaker</span>
+      <p>© 2025 Game Thinking Inc.</p>
       <div class="footer-links">
         <a href="https://journeymaker.io/sign-in">Log In</a>
+        <a href="./privacy.html">Privacy</a>
       </div>
     </div>
   </footer>
+
+  <!-- SCROLL REVEAL -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'));
+        const delay = siblings.indexOf(entry.target) * 80;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
